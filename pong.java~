@@ -1,0 +1,106 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+public class pong implements ActionListener, KeyListener{
+  // Properties
+  JFrame theframe;
+  animationpong thepanel;
+  Timer thetimer;
+  boolean w = false;
+  boolean s = false;
+  boolean i = false;
+  boolean k = false;
+  boolean a = false;
+  boolean d = false;
+  boolean j = false;
+  boolean l = false;
+  
+  // Methods
+  public void actionPerformed(ActionEvent evt){
+    if(evt.getSource() == thetimer){
+      if(s){
+        thepanel.intY1 += 10;
+      }if(w){
+        thepanel.intY1 -= 10; 
+      }if(k){
+        thepanel.intY2 += 10;
+      }if(i){
+        thepanel.intY2 -= 10;
+      }if(a){
+        thepanel.intX1 -= 10;
+      }if(d){
+        thepanel.intX1 += 10;
+      }if(j){
+        thepanel.intX2 -= 10; 
+      }if(l){
+        thepanel.intX2 += 10;
+      }
+    }
+    thepanel.repaint();
+  }
+  public void keyReleased(KeyEvent evt){
+    if(evt.getKeyChar() == 'w'){
+      w = false;
+    }if(evt.getKeyChar() == 's'){
+      s = false;
+    }if(evt.getKeyChar() == 'i'){
+      i = false;
+    }if(evt.getKeyChar() == 'k'){
+      k = false;
+    }if(evt.getKeyChar() == 'a'){
+      a = false;
+    }if(evt.getKeyChar() == 'd'){
+      d = false;
+    }if(evt.getKeyChar() == 'j'){
+      j = false;
+    }if(evt.getKeyChar() == 'l'){
+      l = false;
+    }
+  }
+  public void keyPressed(KeyEvent evt){
+    if(evt.getKeyChar() == 'w'){
+      w = true;
+    }if(evt.getKeyChar() == 's'){
+      s = true;
+    }if(evt.getKeyChar() == 'i'){
+      i = true;
+    }if(evt.getKeyChar() == 'k'){
+      k = true;
+    }if(evt.getKeyChar() == 'a'){
+      a = true;
+    }if(evt.getKeyChar() == 'd'){
+      d = true;
+    }if(evt.getKeyChar() == 'j'){
+      j = true;
+    }if(evt.getKeyChar() == 'l'){
+      l = true;
+    }
+  }
+  public void keyTyped(KeyEvent evt){
+    
+  }
+  
+  // Constructor
+  public pong(){
+    thepanel = new animationpong();
+    thepanel.setLayout(null);
+    thepanel.setPreferredSize(new Dimension(800, 800));
+    thepanel.addKeyListener(this);
+    
+    theframe = new JFrame("4 Player Pong");
+    theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    theframe.setContentPane(thepanel);
+    theframe.pack();
+    theframe.setVisible(true);
+    theframe.addKeyListener(this);
+    
+    thetimer = new Timer(1000/60, this);
+    thetimer.start();
+  }
+  // Main Program
+  public static void main(String[] args){
+    new pong();
+  }
+}
